@@ -13,16 +13,24 @@ build/
 # =========================
 .mvn/wrapper/maven-wrapper.jar
 
-# =========================
-# Spring Tool Suite (STS)
-# =========================
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Maven release backup files
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+# Compiled class files
+*.class
+
+# Packaged files
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
 
 # =========================
 # IntelliJ IDEA
@@ -31,6 +39,17 @@ build/
 *.iws
 *.iml
 *.ipr
+
+# =========================
+# Eclipse / STS
+# =========================
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
 # =========================
 # NetBeans
@@ -51,3 +70,8 @@ build/
 # =========================
 .DS_Store
 Thumbs.db
+
+# =========================
+# Backup files
+# =========================
+*~
