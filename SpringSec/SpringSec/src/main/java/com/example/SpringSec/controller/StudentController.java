@@ -1,6 +1,6 @@
-package com.example.SpringSec;
+package com.example.SpringSec.controller;
 
-import org.springframework.security.web.server.ui.OneTimeTokenSubmitPageGeneratingWebFilter;
+import com.example.SpringSec.model.Student;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
