@@ -21,5 +21,10 @@ public class UsersController {
         return service.register(user);
     }
 
+    @PostMapping("/login")
+    public String login(@RequestBody Users users){
+        return service.login(users);
+    }
+
 
 }
