@@ -916,3 +916,176 @@ together automatically.
 ## Complex queries
 
 → Create separate implementation class.
+
+# UserPrincipal and UserDetails Notes
+
+# UserPrincipal
+
+`UserPrincipal` in Spring Security represents:
+
+# Logged-in User Identity
+
+It is stored inside:
+
+# Authentication Object
+
+Usually `UserPrincipal` implements:
+
+# UserDetails
+
+---
+
+# Spring Security Authentication Workflow
+
+## AuthenticationProvider
+
+Handles authentication process.
+
+Delegates to:
+
+# UserDetailsService
+
+to load user information.
+
+---
+
+## UserDetailsService
+
+You implement this interface.
+
+It fetches user data from:
+
+- Database
+- Memory
+- Other source
+
+Returns:
+
+# UserDetails Object
+
+containing:
+
+- Username
+- Password
+- Roles
+- Account status
+
+---
+
+## PasswordEncoder
+
+Used for secure password checking.
+
+Compares:
+
+```text
+Raw Password vs Stored Hashed Password
+```
+
+---
+
+## UserDetails
+
+Represents authenticated user details.
+
+Important methods:
+
+- `getUsername()`
+- `getPassword()`
+- `getAuthorities()`
+- `isAccountNonLocked()`
+- `isEnabled()`
+- `isCredentialsNonExpired()`
+
+---
+
+# Important Point
+
+`UserDetails` is:
+
+# Interface
+
+So we must implement its methods.
+
+---
+
+# Default UserDetails Implementation
+
+Spring already provides:
+
+# org.springframework.security.core.userdetails.User
+
+If we do not create custom implementation,
+Spring can use this default User class.
+
+---
+
+# Custom UserPrincipal
+
+In DB-backed applications,
+we usually create custom:
+
+# UserPrincipal
+
+which implements `UserDetails`.
+
+Useful for adding extra fields like:
+
+- id
+- email
+- account status
+- roles
+
+---
+
+# Spring Security Doubt Clarification
+
+* If both `InMemoryUserDetailsManager` and custom DB `UserDetailsService` exist, Spring chooses whichever `UserDetailsService` bean gets injected into `AuthenticationProvider`.
+* `AuthenticationProvider` always performs authentication; `UserDetailsService` only fetches users.
+* If only DB authentication is used, Spring calls JPA repository to fetch user from database.
+* If database has no matching user, `loadUserByUsername()` fails and Spring returns `401 Unauthorized`.
+* InMemory users and DB users are never used together unless explicitly configured.
+
+---
+
+# Encrypting Passwords in Database
+
+We use:
+
+# BCryptPasswordEncoder
+
+to securely hash passwords before storing them.
+
+---
+
+# Registration Flow
+
+1. User hits:
+
+```text
+/register
+```
+
+endpoint.
+
+2. RequestBody gives User object.
+
+3. Extract password from object.
+
+4. Encode password using:
+
+# BCryptPasswordEncoder
+
+5. Save encoded password into database using repository.
+
+---
+
+# Important
+
+Passwords should NEVER be stored in plain text.
+
+BCrypt stores:
+
+# Hashed Password
+
+making passwords secure even if database leaks.
