@@ -1,29 +1,36 @@
 # Spring Security Learning Project
 
 A hands-on repository exploring **Spring Security fundamentals** in Java.  
-This project demonstrates how authentication, authorization, and user identity management work in Spring Boot, with a focus on **filter chains, authentication providers, and custom user details**.
+This project demonstrates how authentication, authorization, and user identity management work in Spring Boot, with a focus on **filter chains, authentication providers, custom user details, and JWT integration**.
 
 ---
 
 ## 📖 What You'll Learn
 
 - **SecurityFilterChain & HttpSecurity**
-    - How `HttpSecurity.build()` assembles the filter chain.
-    - Configuring filters for login, CSRF, and role-based access.
+  - How `HttpSecurity.build()` assembles the filter chain.
+  - Configuring filters for login, CSRF, and role-based access.
 
 - **Authentication Workflow**
-    - Role of `AuthenticationManager` and `AuthenticationProvider`.
-    - How providers delegate to `UserDetailsService`.
-    - Password validation with `BCryptPasswordEncoder`.
+  - Role of `AuthenticationManager` and `AuthenticationProvider`.
+  - How providers delegate to `UserDetailsService`.
+  - Password validation with `BCryptPasswordEncoder`.
 
 - **UserDetailsService & Database Integration**
-    - Implementing `UserDetailsService` to fetch users from DB.
-    - Returning `UserDetails` with username, password, roles, and account state.
-    - Managing flags like `enabled`, `locked`, and `expired`.
+  - Implementing `UserDetailsService` to fetch users from DB.
+  - Returning `UserDetails` with username, password, roles, and account state.
+  - Managing flags like `enabled`, `locked`, and `expired`.
 
 - **Role-Based Access Control**
-    - Using `GrantedAuthority` to assign roles (`USER`, `ADMIN`).
-    - Restricting endpoints with `@PreAuthorize` and `authorizeHttpRequests`.
+  - Using `GrantedAuthority` to assign roles (`USER`, `ADMIN`).
+  - Restricting endpoints with `@PreAuthorize` and `authorizeHttpRequests`.
+
+- **JWT Integration**
+  - JWT Service for token generation.
+  - JWT Filter for token validation.
+  - Extracting username from token.
+  - Validating token against `UserDetails`.
+  - Setting authentication in `SecurityContextHolder`.
 
 ---
 
@@ -32,6 +39,7 @@ This project demonstrates how authentication, authorization, and user identity m
 - **Java** (Spring Boot)
 - **Spring Security**
 - **BCryptPasswordEncoder** for password hashing
+- **JJWT (0.12.5)** for JWT handling
 - **Maven** for build management
 
 ---
@@ -63,6 +71,8 @@ mvn spring-boot:run
 - `SecurityConfig.java` → Configures SecurityFilterChain and HttpSecurity.
 - `UserDetailsServiceImpl.java` → Loads users from DB.
 - `UserEntity.java` → Represents user table with fields like username, password, role, locked, enabled.
+- `JWTservice.java` → Generates and validates JWT tokens.
+- `JWTFilter.java` → Validates JWT tokens on incoming requests.
 - `notes.md` → Conceptual notes explaining the workflow step-by-step.
 
 ---
@@ -71,7 +81,7 @@ mvn spring-boot:run
 
 This repo is a starter kit for backend developers learning Spring Security.
 
-It connects theory (filters, providers, principals) with practical code (DB integration, password hashing, role checks).
+It connects theory (filters, providers, principals, JWT) with practical code (DB integration, password hashing, role checks).
 
 ---
 
