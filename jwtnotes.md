@@ -277,3 +277,36 @@ controller executes
 - Register filter in SecurityFilterChain so it runs before UsernamePasswordAuthenticationFilter.
 
 
+# NEW POINT #
+
+
+AuthenticationManager.authenticate() performs the complete authentication process. It calls AuthenticationProvider, which invokes UserDetailsService to load the user from the database and uses PasswordEncoder to verify the password. If validation succeeds, a new authenticated Authentication object is returned (authenticated=true) containing UserDetails and authorities. If validation fails, an AuthenticationException is thrown.
+
+
+# NEW POINT #
+
+
+AuthenticationManager is created internally by Spring Security.
+@Bean authenticationManager(...) exposes it to the IOC container,
+allowing it to be injected into controllers and services using @Autowired.
+but this was not the case in earlier spring , but now we have to do this , it has authmanager but to tell spring to create its object in ioc we have to use this bean 
+
+# NEW POINT #
+
+
+JWT Validation Checklist:
+
+1. Verify JWT signature (ensures token was issued by our server and not modified).
+2. Check token expiry (exp claim).
+3. Extract username from token.
+4. Verify user still exists in the database.
+5. Check current user status (enabled, not locked, etc.).
+6. Load current roles/authorities from the database before creating the Authentication object.
+
+Note: Comparing username from JWT with username from UserDetails is usually not the main purpose; the database lookup is primarily used to verify the user's current state and permissions.
+
+
+# NEW POINT #
+
+
+JWT does not inherently require a database lookup on every request. In a pure stateless JWT approach, username and roles are read directly from the token after signature and expiry validation. However, many Spring Security implementations load UserDetails from the database on each request to obtain the user's current roles, account status, and existence before creating the Authentication object.
