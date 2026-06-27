@@ -391,6 +391,28 @@ We create custom security config class using:
 
 tells Spring this is configuration class.
 
+Without a @Configuration class → Spring Boot uses its default security setup:
+
+All endpoints are secured.
+
+A default login form is provided.
+
+A default password encoder is used.
+
+Basic filters (like CSRF, authentication, etc.) are auto‑wired.
+
+With a @Configuration class → You’re telling Spring:
+
+“Don’t just use defaults — here’s my custom setup.”
+
+You define a SecurityFilterChain bean → this overrides the default chain.
+
+You can add, remove, or reorder filters (JWT filter, disable form login, etc.).
+
+You can provide your own beans (like PasswordEncoder, UserDetailsService, etc.).
+
+securitychain is an object inside that many methods for each filter , so we build that object by hindering the methods one by one  using configuration and later return the sercutiy filter chain object , @bean to mention that this will return the customized object
+
 and:
 
 # @EnableWebSecurity
