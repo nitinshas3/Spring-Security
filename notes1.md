@@ -411,7 +411,8 @@ You can add, remove, or reorder filters (JWT filter, disable form login, etc.).
 
 You can provide your own beans (like PasswordEncoder, UserDetailsService, etc.).
 
-securitychain is an object inside that many methods for each filter , so we build that object by hindering the methods one by one  using configuration and later return the sercutiy filter chain object , @bean to mention that this will return the customized object
+
+**“SecurityChain is an object inside which many objects exist for each filter. It’s like objects holding objects. We build that object by configuring each filter one by one, and later return the SecurityFilterChain object. The `@Bean` annotation mentions that this will return the customized object.”**
 
 and:
 
